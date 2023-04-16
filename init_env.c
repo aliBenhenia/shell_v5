@@ -65,10 +65,13 @@ void	addback_env2(t_env_list **a, t_env_list *new)
 void insert(t_export** head, t_export* new_node) {
     t_export* current;
     
-    if (*head == NULL || strcmp((*head)->var, new_node->var) > 0) {
+    if (*head == NULL || strcmp((*head)->var, new_node->var) > 0)
+    {
         new_node->next = *head;
         *head = new_node;
-    } else {
+    } 
+    else
+    {
         current = *head;
         while (current->next != NULL && strcmp(current->next->var, new_node->var) < 0)
         {

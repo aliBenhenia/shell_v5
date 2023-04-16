@@ -73,7 +73,10 @@ void execve_func(char **cmd, t_env_list **env_list)
 	char **envp;
 
 	path = get_path(env_list);
-	cmd_ = check_command_in_path(path, cmd[0]);
+	if(cmd[0][0] != '/')
+		cmd_ = check_command_in_path(path, cmd[0]);
+	else
+		cmd_ = cmd[0];
 	envp = create_envp(env_list);
 	if (!cmd_)
 	{

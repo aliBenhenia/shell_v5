@@ -25,7 +25,18 @@ int	builtins(char	*cmd)
 		return (4);
 	return (0);
 }
-
+void    print_env(t_env_list *list)
+{
+    t_env_list *head = list;
+    while (head)
+    {
+        if(ft_strcmp(head->value,"") == 0)
+            printf("%s\n",head->name);
+        else
+            printf("%s=\"%s\"\n",head->name,head->value);
+            head = head->next;
+     }
+}
 void	exec_builtins(char	**str, t_env_list **env_list, int code, t_export **export)
 {
     if (code == 1)
@@ -45,15 +56,8 @@ void	exec_builtins(char	**str, t_env_list **env_list, int code, t_export **expor
     }
     else if(code == 4)
     {
-        t_env_list *head = (*env_list);
-        while (head)
-        {
-            if(ft_strcmp(head->value,"") == 0)
-                printf("%s\n",head->name);
-            else
-                printf("%s=\"%s\"\n",head->name,head->value);
-            head = head->next;
-        }
+        print_env(*env_list);
+      
         exit(0);
     }
 

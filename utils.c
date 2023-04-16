@@ -25,7 +25,7 @@ int	ft_strncmp(const char *str1, const char *str2, size_t n)
 int	ft_isalnum(int c)
 {
 	if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z')
-		|| (c >= 'A' && c <= 'Z'))
+		|| (c >= 'A' && c <= 'Z') || c == '_')
 		return (1);
 	return (0);
 }

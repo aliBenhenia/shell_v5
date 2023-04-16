@@ -158,19 +158,19 @@ void	edit_value(char *name, char *value, t_export **data,t_env_list **env_list)
 	t_env_list *lst;
 
 	head = (*data);
-	lst = (*env_list);
 	while (head)
 	{
 		if (ft_strcmp(head->var,name) == 0)
 		{
 			head->value = NULL;
 			head->value = value;
-			return ;
+			break ;
 		}
 		head = head->next;
 	}
+	lst = (*env_list);
 	while (lst)
-	{printf("home --------------------------------------------------------> \n");
+	{
 		if (ft_strcmp(lst->name,name) == 0)
 		{
 			lst->value = NULL;
@@ -195,20 +195,31 @@ int	check_append(char *s)
 	}
 	return (0);
 }
-void	append_string(char *name, char *value,t_export **data)
+void	append_string(char *name, char *value,t_export **data, t_env_list **env_list)
 {
 	int	i;
 	t_export *head;
+	t_env_list *lst;
 
 	head = (*data);
+	lst = (*env_list);
 	while (head)
 	{
 		if (ft_strcmp(head->var, name) == 0)
 		{
 			head->value = ft_strjoin(head->value,value);
-			return;
+			break ;
 		}
 		head = head->next;
+	}
+	while (lst)
+	{
+		if (ft_strcmp(lst->name, name) == 0)
+		{
+			lst->value = ft_strjoin(lst->value,value);
+			break ;
+		}
+		lst = lst->next;
 	}
 }
 
@@ -266,7 +277,7 @@ void    add_var_in_list(t_export **data,t_env_list **env_list, char *str)
 		{
 				if(check_append(str))
 				{
-					append_string(var[0],var[1],data);
+					append_string(var[0],var[1],data,env_list);
 					return;
 				}
 				edit_value(var[0], var[1],data,env_list);
